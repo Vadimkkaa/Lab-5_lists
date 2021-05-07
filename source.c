@@ -1,9 +1,9 @@
 #include"library.h"
 
-void push(Tours** head,Tours**tail) {
+void push(Tours** head, Tours** tail) {
 	Tours* p = malloc(sizeof(Tours));
 	int amountOfLists = 0;
-	Tours* current=*head;
+	Tours* current = *head;
 	while (current) {//for checking whether we have any lists
 		amountOfLists++;
 		current = current->next;
@@ -95,7 +95,7 @@ void push(Tours** head,Tours**tail) {
 	system("CLS");
 }
 
-void pushSpecialDate(Tours **head,Tours** tail, char* namee, int pricee, char* dataa) {
+void pushSpecialDate(Tours** head, Tours** tail, char* namee, int pricee, char* dataa) {
 	Tours* p = malloc(sizeof(Tours));
 
 	if (*tail == NULL) {//if we try to upload a list into a zero list
@@ -134,17 +134,17 @@ void pushSpecialDate(Tours **head,Tours** tail, char* namee, int pricee, char* d
 	p->flag = 0;
 }
 
-void pushSpecialDays(Tours**head,Tours** tail, char* namee, int pricee, int dayss) {
+void pushSpecialDays(Tours** head, Tours** tail, char* namee, int pricee, int dayss) {
 	Tours* p = malloc(sizeof(Tours));
 	if (*tail == NULL) {//if we try to upload a list into a zero list
-		(*head)= p;
+		(*head) = p;
 		*tail = p;
 	}
-	else 
+	else
 		(*tail)->next = p;//we connect new list to the previous chain of lists
 	*tail = p;//now tail points to the new list
-		p->next = NULL;//don't forget about it
-	
+	p->next = NULL;//don't forget about it
+
 	int  flagg;
 	char symbol;
 	int amount = 1;//of letters for name
@@ -172,13 +172,13 @@ void pushSpecialDays(Tours**head,Tours** tail, char* namee, int pricee, int days
 	p->flag = 1;
 }
 
-void delete(Tours** head,Tours **tail) {
+void delete(Tours** head, Tours** tail) {
 	Tours* pos2;
 	Tours* pos1 = NULL;
 	int choice;
 	int amount = 0;
 	char ch;
-	for ( pos2 = *head; pos2 != NULL; pos2 = pos2->next)//wanna know how many lists i have
+	for (pos2 = *head; pos2 != NULL; pos2 = pos2->next)//wanna know how many lists i have
 		amount++;
 	if (amount <= 0) {//no lists left?-instructions below
 		system("CLS");
@@ -194,6 +194,7 @@ void delete(Tours** head,Tours **tail) {
 			printf("Wrong letter!Try again\n"); else break;
 	}
 	if (ch == 'y' || ch == 'Y' && amount > 0) {
+		system("CLS");
 		while (1) {
 			printf("Enter the number of list you wanna delete:\n");
 			rewind(stdin);
@@ -201,15 +202,19 @@ void delete(Tours** head,Tours **tail) {
 			choice++;//the thing is:the task tells me that my lists start with 0 list(not 1 as it should be)
 			if (choice < 1)
 				continue;
-			
+
 			if (amount < choice) {//amount of lists vs. user choice
+				system("CLS");
 				printf("We don't have this amount of lists\n");
+				Sleep(1100);
+				system("CLS");
 				continue;
 			}
 
 			else break;
 
 		}
+		system("CLS");
 		pos2 = *head;//pos 2 now goes to the head
 		if (choice == 1) {//user wanna delete the first list(remember?--choice==0 but i did choice++)
 			*head = pos2->next;//i just rewrite head pointer
@@ -217,11 +222,11 @@ void delete(Tours** head,Tours **tail) {
 			pos2 = *head;//don't what for
 
 		}
-		else if (choice==amount) {//dear user wanna delete the last list
+		else if (choice == amount) {//dear user wanna delete the last list
 
 			Tours* current = *head;//i nedd a pointer that points to list BEFORE the one i wanna delete(the last one actually)
 			Tours* delet = *tail;//the one i'm gonna delete(the last one)
-            amount -= 2;//need this for correct working
+			amount -= 2;//need this for correct working
 			while (amount > 0) {//this cycle's target to point *current to the list before the last one
 				current = current->next;
 				amount--;
@@ -233,14 +238,14 @@ void delete(Tours** head,Tours **tail) {
 
 		}
 		else {
-			
-			Tours* current=*head;//i nedd a pointer that points to list  i wanna delete
-            Tours* before = pos2;//i nedd a pointer that points to list BEFORE the one i wanna delete
+
+			Tours* current = *head;//i nedd a pointer that points to list  i wanna delete
+			Tours* before = pos2;//i nedd a pointer that points to list BEFORE the one i wanna delete
 			Tours* after = pos1;//i nedd a pointer that points to list AFTER the one i wanna delete
-			
+
 			choice -= 2;
-		
-			while (choice> 0) {//need to find location for before pointer
+
+			while (choice > 0) {//need to find location for before pointer
 				before = before->next;
 				choice--;
 			}
@@ -249,14 +254,20 @@ void delete(Tours** head,Tours **tail) {
 			after = after->next;//now after points where it should
 			free(current);
 			before->next = after;
-		
+
 		}
 		system("CLS");
 		printf("Deleted\n\n");
 		Sleep(600);
 		system("CLS");
 
-		
+
+	}
+	if (ch == 'n' || ch == 'N' && amount > 0) {
+		system("CLS");
+		printf("Ok\n");
+		Sleep(800);
+		system("CLS");
 	}
 }
 
@@ -287,7 +298,7 @@ void printFull(Tours* head) {
 
 void print(Tours* head, int Amount) {
 	int number = 0;//number of the head
-	number = Amount-1;
+	number = Amount - 1;
 	Tours* p = head;
 	while (Amount > 1) {
 		p = p->next;
@@ -333,7 +344,7 @@ void isEmptyPrintFull(Tours* head) {
 		Sleep(800);
 		system("CLS");
 	}
-	
+
 	else printFull(head);
 }
 
@@ -370,7 +381,7 @@ void Search(Tours* head) {
 	int choice;
 	int Amount = 1;
 	int searchFlag = 0;
-	printf("Please,choose the parameter u wanna find by\n1-Name\n2-Price\n3-Tour's start date\n4-Tour's duration\n");
+	printf("Please,choose the parameter u wanna find by\n1-Name   2-Price   3-Tour's start date   4-Tour's duration\n");
 	rewind(stdin);
 	while (1) {
 		rewind(stdin);
@@ -526,6 +537,8 @@ void CompleteSearch(Tours* head) {
 
 	int Amount = 1;//for calling the function of Print
 	printf("Enter all required aspects\n\n");
+	Sleep(1100);
+	system("CLS");
 	rewind(stdin);
 	printf("Enter the price:\n");
 	while (1) {
@@ -605,7 +618,7 @@ void CompleteSearch(Tours* head) {
 void inputIntoText(Tours* head, char* arr) {
 	Tours* current = head;
 	//char addInformation;
-	int i = 1;
+	int i = 0;
 	FILE* f;
 	fpos_t endSet = 0;
 
@@ -641,7 +654,7 @@ void inputIntoText(Tours* head, char* arr) {
 			current = current->next;
 			i++;
 		}
-		
+
 		fclose(f);
 		break;
 	}
@@ -665,7 +678,7 @@ void inputIntoBin(Tours* head, FILE* f) {
 
 
 	while (1) {
-		
+
 		i = 0;
 		fwrite(&(head->price), sizeof(int), 1, f);
 		strcpy(name_f, head->name);//just copy name from a list to char massive
@@ -689,7 +702,7 @@ void inputIntoBin(Tours* head, FILE* f) {
 		else {
 			fwrite(&(head->unite.days), sizeof(int), 1, f);
 		}
-		fwrite(&enter,sizeof(char),1,f);
+		fwrite(&enter, sizeof(char), 1, f);
 		if (!((head)->next)) {
 			break;
 		}
@@ -754,8 +767,9 @@ void FileCreate(Tours** head) {
 				arr = (char*)realloc(arr, length * sizeof(char));
 			}
 			rewind(stdin);
+			system("CLS");
 			inputIntoText(head, arr);
-			
+
 			break;
 		}
 		else if (choice == 2) {                                                           //bINARY
@@ -803,9 +817,10 @@ void FileCreate(Tours** head) {
 				system("CLS");
 				return 0;
 			}
+			system("CLS");
 			inputIntoBin(head, file);
 			fclose(file);
-		
+
 			break;
 		}
 
@@ -820,10 +835,10 @@ void FileCreate(Tours** head) {
 	}
 }
 
-int UploadBin(Tours** head,Tours**tail) {
+int UploadBin(Tours** head, Tours** tail) {
 	FILE* f;
 
-	Tours* p ;
+	Tours* p;
 	char file, c;
 	int i = 0;
 	char name[20];
@@ -868,7 +883,7 @@ int UploadBin(Tours** head,Tours**tail) {
 		arr = (char*)realloc(arr, length * sizeof(char));
 	}
 	rewind(stdin);
-
+	system("CLS");
 
 	if (!(f = fopen(arr, "rb+"))) {
 		system("CLS");
@@ -877,19 +892,20 @@ int UploadBin(Tours** head,Tours**tail) {
 		system("CLS");
 		return 0;
 	}
-
+	rewind(stdin);
 	while (!feof(f)) {//wanna know how many strings(lists) i have in file
-		fread(&symbol,sizeof(char),1,f);
-		if(symbol=='\n')
-		amountOfEnters++;
+		fread(&symbol, sizeof(char), 1, f);
+		if (symbol == '\n')
+			amountOfEnters++;
 	}
 	amountOfEnters--;//one '\n' extends my number of strings 
+	//amountOfEnters--;
 	i = 0;
 	rewind(f);
-	while(amountOfEnters>0){
+	while (amountOfEnters > 0) {
 		c = ' ';
 		i = 0;
-	
+
 		if (feof(f)) {
 			break;
 		}
@@ -905,15 +921,15 @@ int UploadBin(Tours** head,Tours**tail) {
 			*head = p;
 			p->next = NULL;
 			*tail = p;
-	
+
 		}
 		else {
 			(*tail)->next = p;
 			p->next = NULL;
 			(*tail) = p;
-		
+
 		}
-			
+
 
 		fread(&(p)->price, sizeof(int), 1, f);
 		while (1) {
@@ -941,19 +957,19 @@ int UploadBin(Tours** head,Tours**tail) {
 		else {
 			fread(&(p)->unite.days, sizeof(int), 1, f);
 		}
-		
+
 
 
 		if (feof(f)) {
 			break;
 		}
-		
+
 		fread(&symbol, sizeof(char), 1, f);
 		if (feof(f)) {
 			break;
 		}
 		amountOfEnters--;
-	} 
+	}
 
 	fclose(f);
 	system("CLS");
@@ -964,7 +980,7 @@ int UploadBin(Tours** head,Tours**tail) {
 
 }
 
-void TextUpload(Tours**head,Tours** tail) {
+void TextUpload(Tours** head, Tours** tail) {
 	char* arr;
 	char* name, * data;
 	int price;
@@ -1021,6 +1037,7 @@ void TextUpload(Tours**head,Tours** tail) {
 		arr = (char*)realloc(arr, length * sizeof(char));
 	}
 	rewind(stdin);
+	system("CLS");
 	if ((f = fopen(arr, "r+")) == NULL) {
 		system("CLS");
 		printf("Open error\n");
@@ -1036,88 +1053,88 @@ void TextUpload(Tours**head,Tours** tail) {
 			amount1++;
 		if (feof(f))
 			break;
-		
+
 	}
-	amount1--;//one '\n' was spoils my number 
+	amount1--;//one '\n' spoils my number 
 
 	rewind(stdin);
-	fseek(f,0,0);
+	fseek(f, 0, 0);
 	while (amount1 > 0) {
-		fseek(f, 7, 1);//i start lik1 '1.Name:' soo need to get rigth to the info 
+		fseek(f, 7, 1);//i start lik1 '1.Name:' soo need to get right to the info 
 
-			
-			length = 1;
+
+		length = 1;
+		i = 0;
+		while (1) {
+			fscanf(f, "%c", &symbol);
+			if (symbol == ' ') {
+				name[i] = '\0';
+				break;
+			}
+			name = (char*)realloc(name, ++length * sizeof(char));
+			name[i++] = symbol;
+		}
+
+		fseek(f, 6, 1);//the goes 'Price:' so need to get to the info
+		fscanf(f, "%d", &price);
+		fseek(f, 1, 1);
+		fscanf(f, "%c", &symbol);
+		if (symbol == 'D') {
+			flag = 0;
+			fseek(f, 13, 1);//'Date of start:' info after
 			i = 0;
 			while (1) {
 				fscanf(f, "%c", &symbol);
-				if (symbol == ' ') {
-					name[i] = '\0';
-					break;
-				}
-				name = (char*)realloc(name, ++length * sizeof(char));
-				name[i++] = symbol;
-			}
-			
-			fseek(f, 6, 1);//the goes 'Price:' so need to get to the info
-			fscanf(f, "%d", &price);
-			fseek(f, 1, 1);
-			fscanf(f, "%c", &symbol);
-			if (symbol == 'D') {
-				flag = 0;
-				fseek(f, 13, 1);//'Date of start:' info after
-				i = 0;
-				while (1) {
-					fscanf(f, "%c", &symbol);
-					if (symbol == '\n') {
-						data[i++] = '\0';
-						
-						pushSpecialDate(head,tail, name, price, data);
-						
-				            if(feof(f))
-				       	break;
+				if (symbol == '\n') {
+					data[i++] = '\0';
 
-						amount1--;
+					pushSpecialDate(head, tail, name, price, data);
 
-						if (amount1 < 1) {
-							system("CLS");
-							printf("Done\n");
-							Sleep(600);
-							system("CLS");
-							
-							return;
-						}
-
-						break;
-					}
-					
-					data[i++] = symbol;
-
-
-				}
-			}
-			else {
-				flag = 1;
-				fseek(f, 16, 1);//'Trip's duration:' info after
-				
-				fscanf(f, "%d", &days);
-				fscanf(f, "%c", &symbol);
-									
-					pushSpecialDays(head,tail, name, price, days);
 					if (feof(f))
 						break;
-					
+
 					amount1--;
+
 					if (amount1 < 1) {
 						system("CLS");
 						printf("Done\n");
 						Sleep(600);
 						system("CLS");
+
 						return;
 					}
-					
+
+					break;
+				}
+
+				data[i++] = symbol;
+
 
 			}
-		
+		}
+		else {
+			flag = 1;
+			fseek(f, 16, 1);//'Trip's duration:' info after
+
+			fscanf(f, "%d", &days);
+			fscanf(f, "%c", &symbol);
+
+			pushSpecialDays(head, tail, name, price, days);
+			if (feof(f))
+				break;
+
+			amount1--;
+			if (amount1 < 1) {
+				system("CLS");
+				printf("Done\n");
+				Sleep(600);
+				system("CLS");
+				return;
+			}
+
+
+		}
+
 
 	}
 	fclose(f);
