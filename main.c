@@ -36,6 +36,7 @@ int main(void) {
 				if (!(scanf_s("%c", &c)) || c != 'y' && c != 'Y' && c != 'n' && c != 'N')
 					printf("Sth went wrong!Please please, try again\n"); else break;
 			}
+			system("CLS");
 			if (c == 'y' || c == 'Y')
 				Search(head);
 
@@ -49,9 +50,10 @@ int main(void) {
 				if (!(scanf_s("%c", &c)) || c != 'y' && c != 'Y' && c != 'n' && c != 'N')
 					printf("Sth went wrong!Please please, try again\n"); else break;
 			}
+			system("CLS");
 			if (c == 'y' || c == 'Y')
 				CompleteSearch(head);
-
+			
 			break;
 		case 6:
 			system("CLS");
@@ -89,3 +91,4 @@ int main(void) {
 	}
 	return 0;
 }
+
